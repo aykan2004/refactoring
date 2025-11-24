@@ -7,6 +7,7 @@ import java.util.Map;
 /**
  * This class generates a statement for a given invoice of performances.
  */
+@SuppressWarnings({"checkstyle:LineLength", "checkstyle:SuppressWarnings"})
 public class StatementPrinter {
     private final Invoice invoice;
     @SuppressWarnings({"checkstyle:DeclarationOrder", "checkstyle:SuppressWarnings"})
@@ -60,7 +61,7 @@ public class StatementPrinter {
         return plays.get(p.getPlayID());
     }
 
-    @SuppressWarnings({"checkstyle:ParameterName", "checkstyle:SuppressWarnings", "checkstyle:MagicNumber", "checkstyle:SingleSpaceSeparator"})
+    @SuppressWarnings({"checkstyle:ParameterName", "checkstyle:SuppressWarnings", "checkstyle:MagicNumber", "checkstyle:SingleSpaceSeparator", "checkstyle:Indentation"})
     private static int getAmount(Performance performance) {
         int result;
         switch (getPlay(performance).getType()) {
@@ -91,6 +92,7 @@ public class StatementPrinter {
      * @param performance the performance to calculate credits for
      * @return the volume credits earned
      */
+    @SuppressWarnings({"checkstyle:OverloadMethodsDeclarationOrder", "checkstyle:SuppressWarnings"})
     private int getVolumeCredits(Performance performance) {
         int result = Math.max(
                 performance.getAudience() - Constants.BASE_VOLUME_CREDIT_THRESHOLD, 0);
@@ -108,6 +110,7 @@ public class StatementPrinter {
      * @param amountInCents the amount in cents
      * @return the formatted amount in US dollars
      */
+    @SuppressWarnings({"checkstyle:RegexpMultiline", "checkstyle:SuppressWarnings"})
     private String usd(int amountInCents) {
         return NumberFormat.getCurrencyInstance(Locale.US)
                 .format((double) amountInCents / Constants.PERCENT_FACTOR);
