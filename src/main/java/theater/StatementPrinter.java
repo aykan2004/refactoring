@@ -48,10 +48,10 @@ public class StatementPrinter {
         return totalAmount;
     }
 
-    private int getTotalVolumeCredits() {
+    private int getVolumeCredits() {
         int volumeCredits = 0;
         for (Performance p : invoice.getPerformances()) {
-            volumeCredits += getTotalVolumeCredits(p);
+            volumeCredits += getVolumeCredits(p);
         }
         return volumeCredits;
     }
@@ -93,7 +93,7 @@ public class StatementPrinter {
      * @return the volume credits earned
      */
     @SuppressWarnings({"checkstyle:OverloadMethodsDeclarationOrder", "checkstyle:SuppressWarnings"})
-    private int getTotalVolumeCredits(Performance performance) {
+    private int getVolumeCredits(Performance performance) {
         int result = Math.max(
                 performance.getAudience() - Constants.BASE_VOLUME_CREDIT_THRESHOLD, 0);
 
@@ -115,6 +115,21 @@ public class StatementPrinter {
         return NumberFormat.getCurrencyInstance(Locale.US)
                 .format((double) amountInCents / Constants.PERCENT_FACTOR);
     }
+
+    /**
+     * Calculates the total volume credits for the invoice.
+     *
+     * @return the total volume credits
+     */
+    @SuppressWarnings("checkstyle:RegexpMultiline")
+    private int getTotalVolumeCredits() {
+        int volumeCredits = 0;
+        for (Performance p : invoice.getPerformances()) {
+            volumeCredits += getVolumeCredits(p);
+        }
+        return volumeCredits;
+    }
+
 
 
 }
