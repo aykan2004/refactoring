@@ -1,3 +1,4 @@
+e9c643c Update for CheckStyle
 bebd414 Task 2.4
 4f76bdf Task 2.3
 3b8f36f Task 2.1 & 2.2: Refactor amount and volume credits

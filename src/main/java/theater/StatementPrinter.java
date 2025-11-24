@@ -36,7 +36,7 @@ public class StatementPrinter {
         }
 
         result.append(String.format("Amount owed is %s%n", usd(getTotalAmount())));
-        result.append(String.format("You earned %s credits%n", getVolumeCredits()));
+        result.append(String.format("You earned %s credits%n", getTotalVolumeCredits()));
         return result.toString();
     }
 
@@ -48,10 +48,10 @@ public class StatementPrinter {
         return totalAmount;
     }
 
-    private int getVolumeCredits() {
+    private int getTotalVolumeCredits() {
         int volumeCredits = 0;
         for (Performance p : invoice.getPerformances()) {
-            volumeCredits += getVolumeCredits(p);
+            volumeCredits += getTotalVolumeCredits(p);
         }
         return volumeCredits;
     }
@@ -93,7 +93,7 @@ public class StatementPrinter {
      * @return the volume credits earned
      */
     @SuppressWarnings({"checkstyle:OverloadMethodsDeclarationOrder", "checkstyle:SuppressWarnings"})
-    private int getVolumeCredits(Performance performance) {
+    private int getTotalVolumeCredits(Performance performance) {
         int result = Math.max(
                 performance.getAudience() - Constants.BASE_VOLUME_CREDIT_THRESHOLD, 0);
 
