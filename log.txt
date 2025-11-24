@@ -1,3 +1,4 @@
+4f76bdf Task 2.3
 3b8f36f Task 2.1 & 2.2: Refactor amount and volume credits
 0c7ea56 Task 2.2: Extract and use getVolumeCredits correctly
 84d898e Task 2.1

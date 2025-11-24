@@ -22,27 +22,37 @@ public class StatementPrinter {
      * @return the formatted statement
      * @throws RuntimeException if one of the play types is not known
      */
-    @SuppressWarnings({"checkstyle:FinalLocalVariable", "checkstyle:SuppressWarnings", "checkstyle:MagicNumber", "checkstyle:LineLength", "checkstyle:NeedBraces", "checkstyle:MultipleStringLiterals"})
+    @SuppressWarnings({"checkstyle:FinalLocalVariable", "checkstyle:SuppressWarnings", "checkstyle:MagicNumber", "checkstyle:LineLength", "checkstyle:NeedBraces", "checkstyle:MultipleStringLiterals", "checkstyle:VariableDeclarationUsageDistance"})
     public String statement() {
-        int totalAmount = 0;
-        int volumeCredits = 0;
-        StringBuilder result = new StringBuilder("Statement for " + invoice.getCustomer() + System.lineSeparator());
+        StringBuilder result = new StringBuilder("Statement for "
+                + invoice.getCustomer() + System.lineSeparator());
 
         for (Performance p : invoice.getPerformances()) {
-
-            // add volume credits
-            volumeCredits += getVolumeCredits(p);
-
-            // print line for this order
             result.append(String.format("  %s: %s (%s seats)%n",
                     getPlay(p).getName(),
                     usd(getAmount(p)),
                     p.getAudience()));
+        }
+
+        result.append(String.format("Amount owed is %s%n", usd(getTotalAmount())));
+        result.append(String.format("You earned %s credits%n", getVolumeCredits()));
+        return result.toString();
+    }
+
+    private int getTotalAmount() {
+        int totalAmount = 0;
+        for (Performance p : invoice.getPerformances()) {
             totalAmount += getAmount(p);
         }
-        result.append(String.format("Amount owed is %s%n", usd(totalAmount)));
-        result.append(String.format("You earned %s credits%n", volumeCredits));
-        return result.toString();
+        return totalAmount;
+    }
+
+    private int getVolumeCredits() {
+        int volumeCredits = 0;
+        for (Performance p : invoice.getPerformances()) {
+            volumeCredits += getVolumeCredits(p);
+        }
+        return volumeCredits;
     }
 
     @SuppressWarnings({"checkstyle:ParameterName", "checkstyle:SuppressWarnings"})
